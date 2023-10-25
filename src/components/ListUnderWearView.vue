@@ -105,7 +105,7 @@ const fetchData = async () => {
         coatlist=responseData
         clothingList.value = responseData.map((item:any) => ({
           id: item.id,
-          clothingid: item.clothing.clothingid,
+          clothingid: item.clothing.id,
           name: item.clothing.name,
           url: item.clothing.url,
           srcList: item.clothing.srcList ? JSON.parse(item.clothing.srcList) : [],
