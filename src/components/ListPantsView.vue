@@ -1,6 +1,5 @@
 <template>
-        <label for="选择季节">选择季节</label>
-            <el-select v-model="inputvalue" placeholder="请选择">
+            <el-select v-model="inputvalue" placeholder="请选择季节">
             <el-option
             v-for="item in options"
             :key="item.value"
@@ -9,6 +8,7 @@
             </el-option>
             </el-select>
             <el-button @click="inputvalue=null">重置</el-button>
+            <el-button @click="openWindow" size="small" type="primary">添加</el-button>
     <el-card>
     <el-table  :data="clothingList.filter(data=>!inputvalue||(data.season==inputvalue)) " table-layout="fixed" :show-overflow-tooltip="true" 
     :row-style="{height:'20px'}" :cell-style="{padding:'0px'}" style="font-size: 10px"
@@ -48,9 +48,6 @@
     </el-table>
     </el-card>
 
-    <div style="position: absolute;z-index: 9;bottom:5vh;right: 5px;" >
-        <el-button type="primary" @click="openWindow" >添加</el-button>
-    </div>
 
     <el-dialog  v-model="windowVisible" :append-to-body="true" width="100%" height="50vh" >
              <EditPantsView v-if="windowVisible" ref="popWindow" :fetchData="fetchData" :inputdisable="inputdisable"></EditPantsView>
