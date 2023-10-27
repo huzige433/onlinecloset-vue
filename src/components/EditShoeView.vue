@@ -98,8 +98,14 @@ export default {
             if (form1.url == '' || form1.name == '' || form1.descript == '') {
                 return false
             }
+            if(!form1.clothing.userid){
+                form1.clothing.userid=localStorage.getItem('userid');
+            }
             form1.clothing.srcList = '["' + this.form.clothing.url + '"]';
             form1.clothing.type=3
+            if(!form1.clothing.userid){
+                form1.clothing.userid=localStorage.getItem('userid');
+            }
             console.info(form1);
             axios.post('/v1/shoe/add', form1)
                 .then((response) => {
@@ -195,4 +201,12 @@ export default {
     width: 108px;
     height: 108px;
     display: flex;
-}</style>
+}
+.el-form-inline {
+    display: flex;
+    flex-wrap: wrap;
+}
+.el-form-item {
+    width: 90%;
+}
+</style>

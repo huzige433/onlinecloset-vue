@@ -1,7 +1,7 @@
 <!--一个组件多用，添加/编辑弹窗-->
 <template>
     <div class="mycontainer">
-        <el-form :inline="true" ref="form" label-width="120px">
+        <el-form :inline="true" ref="form" label-width="40px">
             <el-form-item label="图片">
                 <el-upload class="avatar-uploader" action="lei" :on-change="handleChange" :show-file-list="false"
                     :http-request="httpRequest" :disabled="inputdisable"><!--覆盖默认上传-->
@@ -31,7 +31,7 @@
             <el-form-item label="裤长">
                 <el-input type="text" v-model="form.pantslength" :disabled="inputdisable"></el-input>
             </el-form-item>
-            <el-form-item label="底裤裆(1/2大腿围)">
+            <el-form-item label="底裤裆">
                 <el-input type="text" v-model="form.halfthignwidth" :disabled="inputdisable"></el-input>
             </el-form-item>
             <el-form-item label="上裆">
@@ -128,6 +128,9 @@ export default {
             }
             form1.clothing.srcList = '["' + this.form.clothing.url + '"]';
             form1.clothing.type=1;
+            if(!form1.clothing.userid){
+                form1.clothing.userid=localStorage.getItem('userid');
+            }
             console.info(form1);
             axios.post('/v1/pants/add', form1)
                 .then((response) => {
@@ -223,4 +226,12 @@ export default {
     width: 108px;
     height: 108px;
     display: flex;
-}</style>
+}
+.el-form-inline {
+    display: flex;
+    flex-wrap: wrap;
+}
+.el-form-item {
+    width: 90%;
+}
+</style>

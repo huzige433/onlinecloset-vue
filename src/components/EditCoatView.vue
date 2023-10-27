@@ -2,6 +2,7 @@
 <template>
     <div class="mycontainer">
         <el-form :inline="true" ref="form" label-width="40px">
+            <TagsView ref="tagWindow"/>
             <el-form-item label="图片">
                 <el-upload class="avatar-uploader" action="lei" :on-change="handleChange" :show-file-list="false"
                     :http-request="httpRequest" :disabled="inputdisable"><!--覆盖默认上传-->
@@ -51,15 +52,18 @@
                 <el-input type="textarea" v-model="form.clothing.descript" :autosize="{ minRows: 2, maxRows: 10 }"
                     :disabled="inputdisable"></el-input>
             </el-form-item>
+            
         </el-form>
     </div>
 </template>
  
 <script >
 import axios from 'axios';
+import TagsView from './TagsView.vue';
+import {nextTick} from 'vue';
 export default {
     name: 'EditCoatView',
-    components: {},
+    components: {TagsView},
     props: {
         fetchData: {
             type: Function,
@@ -83,7 +87,8 @@ export default {
                     srcList: '',
                     size: '',
                     price: '',
-                    buytime: ''
+                    buytime: '',
+                    type: ''
                 }
             },
             tempUrl: '',
@@ -104,6 +109,21 @@ export default {
                 // this.form.descript = data.descript;
                 // this.form.id = data.id;
                 console.info(this.form);
+                nextTick(()=>{
+                    this.$refs.tagWindow.initdata(this.form.clothing)
+                })
+                
+
+
+            }
+        },
+        newInit(type) {
+            console.info(type)
+            if (type!=null) {
+                this.form.clothing.type = type
+                nextTick(()=>{
+                    this.$refs.tagWindow.initdata(this.form.clothing)
+                })
             }
         },
         handleChange(file, fileList) {
@@ -116,6 +136,9 @@ export default {
             }
             form1.clothing.srcList = '["' + this.form.clothing.url + '"]';
             form1.clothing.type=0;
+            if(!form1.clothing.userid){
+                form1.clothing.userid=localStorage.getItem('userid');
+            }
             console.info(form1);
             axios.post('/v1/coat/add', form1)
                 .then((response) => {
@@ -211,4 +234,14 @@ export default {
     width: 108px;
     height: 108px;
     display: flex;
-}</style>
+}
+
+.el-form-inline {
+    display: flex;
+    flex-wrap: wrap;
+}
+.el-form-item {
+    width: 90%;
+}
+
+</style>

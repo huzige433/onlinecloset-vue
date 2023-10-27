@@ -7,18 +7,17 @@
             :value="item.value">
             </el-option>
             </el-select>
-            <el-button @click="inputvalue=null" size="small" >重置</el-button>
+            <el-button @click="inputvalue=null"  >重置</el-button>
             <el-button @click="openWindow" size="small" type="primary">添加</el-button>
     <el-card>
-    <el-table  :data="clothingList.filter(data=>!inputvalue||(data.season==inputvalue))" table-layout="fixed" :show-overflow-tooltip="true" 
+        <el-table :data="clothingList.filter(data=>!inputvalue||(data.season==inputvalue))" table-layout="fixed" :show-overflow-tooltip="true" 
     :row-style="{height:'20px'}" :cell-style="{padding:'0px'}" style="font-size: 10px"
-    :header-cell-style="{padding:'0px'}"
-      fit border >
+     fit border >
         
-        <el-table-column label="览" min-width="40%" >
+        <el-table-column label="览" min-width="50%" >
             <template #default="scope" >
-                <el-image style="max-height: 25px; max-width: 25px; display:block;margin: 0 auto;" :src="scope.row.url" :zoom-rate="1.2"
-                    :preview-src-list="scope.row.srcList" :initial-index="4" fit="contain" :preview-teleported="true"  />
+                <el-image style="width: 100%; height: 100%; display: block; margin: 0 auto;" :src="scope.row.url" :zoom-rate="1.2"
+            :preview-src-list="scope.row.srcList" :initial-index="4" fit="contain" :preview-teleported="true" />
             </template>
         </el-table-column>
         <el-table-column prop="name" label="名" :filters="[{text:'短袖',value:'短袖'},{text:'衬衫',value:'衬衫'}]" :filter-method="filterHandler" min-width="40%" />
@@ -88,7 +87,8 @@ const clothingList  = ref<Clothing[]>([]);
 var coatlist:any = [];
 const fetchData = async () => {
       try {
-        const response = await axios.get('/v1/coat/list');
+        const headers={'userid':localStorage.getItem('userid')}
+        const response = await axios.get('/v1/coat/list',{headers:headers});
         const responseData = response.data;
         coatlist=responseData
         clothingList.value = responseData.map((item:any) => ({
@@ -113,6 +113,9 @@ onMounted(fetchData);
 const  openWindow= () =>{
         windowVisible.value=true
         inputdisable.value=false
+        nextTick(()=>{
+        popWindow.value.newInit(0)
+    })
       }
 
 const handleEdit = (index: number,edit:boolean) => {
@@ -154,7 +157,7 @@ const filterHandler=(value:any, row:any, column:any)=>{
 </script>
 
 <style>
-.el-table .cell{
-    padding: 5px;
+.el-table .cell.el-tooltip{
+    padding:0 2px;
 }
 </style>

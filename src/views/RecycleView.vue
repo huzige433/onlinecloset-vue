@@ -28,12 +28,12 @@ export default {
     },
     methods: {
         goBack() {
-            this.$router.go (-1)
+            this.$router.push('/')
 
         },
         getdata(seasonnum){
           const url=`/v1/recycle`  
-            axios.get(url)
+            axios.get(url,{headers:{"userid":localStorage.getItem("userid")}})
             .then((response) =>{
                 this.clothingdata=response.data;
             })

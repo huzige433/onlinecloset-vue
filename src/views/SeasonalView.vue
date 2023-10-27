@@ -3,7 +3,7 @@
         <el-container>
             <el-main>
                 <el-page-header @back="goBack" content="按季节展示衣服">
-            <el-select v-model="value" placeholder="请选择" @change="getdata(value)">
+            <el-select v-model="value" placeholder="请选择" @change="getdata">
             <el-option
             v-for="item in options"
             :key="item.value"
@@ -11,7 +11,7 @@
             :value="item.value">
             </el-option>
             </el-select>
-            <el-button @click="value=null">重置</el-button>
+            <el-button @click="value=null;getdata()">重置</el-button>
             </el-page-header>
         <el-row :gutter="10">
           <el-col v-for="clothing in coatdata" :key="clothing.id" :span="8">
@@ -68,7 +68,7 @@ export default {
     },
     methods: {
         goBack() {
-            this.$router.go (-1)
+            this.$router.push('/')
 
         },
         getdata(seasonnum){
@@ -78,7 +78,7 @@ export default {
           }else{
             url=`/v1/imglist/${seasonnum}`
           }        
-            axios.get(url)
+            axios.get(url,{headers:{"userid":localStorage.getItem('userid')}})
             .then((response) =>{
                 this.clothingdata=response.data;
                 this.coatdata=this.clothingdata.filter((data)=>{return data.type === 0})
