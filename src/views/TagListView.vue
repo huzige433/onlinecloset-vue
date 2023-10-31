@@ -14,7 +14,7 @@
         <el-container>
             <el-header></el-header>
             <el-main style="text-align: center;">
-                <el-tag :key="tag.id" v-for="tag in temptagitems" :disable-transitions="false">
+                <el-tag :key="tag.id" v-for="tag in temptagitems" :disable-transitions="false" @close="handleClose(tag)" closable>
                     <router-link :to="computedRoute(tag)" class="tag-link">{{ tag.label }}</router-link>
                 </el-tag>
             </el-main>
@@ -64,7 +64,7 @@ export default {
                     break;
             }
   },
-        getTagList() {
+    getTagList() {
             axios.get(`/v1/tags/gettagoptions`).then((res) => {
                 this.tagitems = res.data.map((item) => {
                     return {
@@ -84,6 +84,14 @@ export default {
         reinitdata(){
             this.inputvalue=null;
             this.temptagitems=this.tagitems
+
+        },
+        handleClose(tag){
+            this.$confirm('确认关闭？所有相关标签会取消关联').then(_=>{
+                axios.get(`/v1/tags/remove/${tag.value}`).then((res) =>{
+                this.temptagitems.splice(this.temptagitems.indexOf(tag), 1);
+            }).catch((err) =>{console.log(err )})
+            }).catch(_=>{})
 
         }
 

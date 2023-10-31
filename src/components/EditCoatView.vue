@@ -5,7 +5,7 @@
             <TagsView ref="tagWindow" />
             <el-form-item label="图片">
                 <el-upload class="avatar-uploader" action="lei" :on-change="handleChange" :show-file-list="false"
-                    :http-request="httpRequest" :disabled="inputdisable"><!--覆盖默认上传-->
+                    :http-request="uploadImages" :disabled="inputdisable"><!--覆盖默认上传-->
                     <el-image v-if="form.clothing.url" :src="form.clothing.url" class="avatar"></el-image>
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
@@ -198,6 +198,27 @@ export default {
 
                 });
 
+            }
+        },
+
+        uploadImages(item) {
+            //验证图片格式大小信息
+            const isJPG = item.file.type == 'image/jpeg' || item.file.type == 'image/png';
+            const isLt2M = item.file.size / 1024 / 1024 < 20;
+            if (!isJPG) {
+                this.$message.error('上传图片只能是 JPG 或 PNG 格式!');
+            }
+            if (!isLt2M) {
+                this.$message.error('上传图片大小不能超过 20MB!');
+            }
+            //图片格式大小信息没问题 执行上传图片的方法
+            if (isJPG && isLt2M == true) {
+                // post上传图片
+                const formData = new FormData();
+                formData.append('file', item.file);
+                axios.post('/v1/uploadImages', formData).then((res) => {
+                    this.form.clothing.url=res.data
+                }).catch((err) =>{console.log(err)});
             }
         },
         

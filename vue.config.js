@@ -14,6 +14,11 @@ module.exports = defineConfig({
           target: 'http://localhost:8087', //后台服务器的地址
           ws: true, //代理websockets
           changeOrigin: true, // 是否跨域，虚拟的站点需要更管origin
+        },
+        '/upload': {
+          target: 'http://localhost:8087', //后台服务器的地址
+          ws: true, //代理websockets
+          changeOrigin: true, // 是否跨域，虚拟的站点需要更管origin
         }
     }
 }
