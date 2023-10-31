@@ -58,6 +58,7 @@
 import { ref,nextTick,onMounted  } from 'vue';
 import EditCoatView from './EditCoatView.vue';
 import axios from 'axios';
+import { useRoute } from 'vue-router';
 
 const windowVisible = ref(false);
 const inputdisable = ref(false);
@@ -84,14 +85,29 @@ interface Clothing {
 }
 
 const clothingList  = ref<Clothing[]>([]);
+const tagid= ref<Number>();
 var coatlist:any = [];
-const fetchData = async () => {
-      try {
+const fetchData = async (tagid:Number|undefined) => {
+    if(!tagid){
+        try {
         const headers={'userid':localStorage.getItem('userid')}
         const response = await axios.get('/v1/coat/list',{headers:headers});
         const responseData = response.data;
         coatlist=responseData
-        clothingList.value = responseData.map((item:any) => ({
+      } catch (error) {
+        console.error(error);
+      }
+    }else{
+        try {
+        const response = await axios.get('/v1/tags/getclothingfrontag',{params:{tagid:tagid,type:0}});
+        const responseData = response.data;
+        coatlist=responseData
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    if(coatlist){
+    clothingList.value = coatlist.map((item:any) => ({
           id: item.id,
           clothingid: item.clothing.id,
           name: item.clothing.name,
@@ -102,13 +118,16 @@ const fetchData = async () => {
           shoulder_length:item.shoulderWidth,
           sleeve_length:item.sleeveLength,
           season:item.clothing.season
-        }));
-      } catch (error) {
-        console.error(error);
-      }
+        }));}
+
     };
 
-onMounted(fetchData);
+onMounted(()=>{
+    const route = useRoute();
+    tagid.value=Number(route.query.tagid)
+    console.log(tagid.value)
+    fetchData(tagid.value)
+})
 
 const  openWindow= () =>{
         windowVisible.value=true
@@ -134,7 +153,7 @@ const handleDelete = (index: number, row: Clothing) => {
         axios.get(url)
         .then(response=>{
             console.log(response.data)
-            fetchData()
+            fetchData(tagid.value)
         })
         .catch(error=>{
             throw new Error(error.response.data)
@@ -142,8 +161,10 @@ const handleDelete = (index: number, row: Clothing) => {
     }
 
 }
-const postform = () => {
-    if(popWindow.value.updataform()==true){
+const  postform = async () => {
+    let msg=await popWindow.value.updataform();
+    console.log(msg)
+    if(msg){
         windowVisible.value=false
     }
  

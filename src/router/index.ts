@@ -4,6 +4,7 @@ import List from "../views/ListPage.vue";
 import Seasonal from "../views/SeasonalView.vue";
 import Recycle from "../views/RecycleView.vue";
 import User from "../views/UserView.vue";
+import TagList from "../views/TagListView.vue";
  
 const routes: Array<RouteRecordRaw> = [
   {
@@ -23,7 +24,7 @@ const routes: Array<RouteRecordRaw> = [
     
   },
   {
-    path: "/list/coat",
+    path: "/list/coat/:tagid?",
     name:'coat',
     component: List,
     meta: { requiresAuth: true }
@@ -57,6 +58,11 @@ const routes: Array<RouteRecordRaw> = [
     name: "recycle",
     component:Recycle,
     meta: { requiresAuth: true }
+  },
+  {
+    path: "/taglist",
+    'name':'taglist',
+    component: TagList
   }
 ];
 

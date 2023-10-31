@@ -22,6 +22,17 @@
         <div>分类</div>
       </template>
     </tab-bar-item>
+    <tab-bar-item path="/taglist" active-color="">
+      <template v-slot:item-icon>
+        <img src="../assets/tabbar/detailed.png" alt="" height="15">
+      </template>
+      <template v-slot:item-icon-active>
+        <img src="../assets/tabbar/detailed.png" alt="" height="50" >
+      </template>
+      <template v-slot:item-text>
+        <div>标签</div>
+      </template>
+    </tab-bar-item>
     <tab-bar-item path="/recycle" active-color="">
       <template v-slot:item-icon>
         <img src="../assets/tabbar/recycle.png" alt="" height="15">
@@ -30,7 +41,7 @@
         <img src="../assets/tabbar/recycle.png" alt="" height="50">
       </template>
       <template v-slot:item-text>
-        <div>垃圾</div>
+        <div>回收</div>
       </template>
     </tab-bar-item>
   </tab-bar>

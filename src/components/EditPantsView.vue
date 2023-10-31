@@ -2,6 +2,7 @@
 <template>
     <div class="mycontainer">
         <el-form :inline="true" ref="form" label-width="40px">
+            <TagsView ref="tagWindow" />
             <el-form-item label="图片">
                 <el-upload class="avatar-uploader" action="lei" :on-change="handleChange" :show-file-list="false"
                     :http-request="httpRequest" :disabled="inputdisable"><!--覆盖默认上传-->
@@ -66,9 +67,11 @@
  
 <script >
 import axios from 'axios';
+import TagsView from './TagsView.vue';
+import {nextTick} from 'vue';
 export default {
     name: 'EditCoatView',
-    components: {},
+    components: {TagsView},
     props: {
         fetchData: {
             type: Function,
@@ -115,26 +118,45 @@ export default {
                 // this.form.name = data.name;
                 // this.form.descript = data.descript;
                 // this.form.id = data.id;
-                console.info(this.form);
+                nextTick(()=>{
+                    this.$refs.tagWindow.initdata(this.form.clothing)
+                })
+            }
+        },
+        newInit(type) {
+            this.isnewclothing=true
+            console.info(type)
+            if (type!=null) {
+                this.form.clothing.type = type
+                nextTick(()=>{
+                    this.$refs.tagWindow.initdata(this.form.clothing)
+                })
             }
         },
         handleChange(file, fileList) {
             this.tempUrl = URL.createObjectURL(file.raw);
         },
-        updataform() {
+        async updataform() {
             const form1 = this.form;
-            if (form1.url == '' || form1.name == '' || form1.descript == '') {
+            if (form1.clothing.url == '' || form1.clothing.name == '' 
+            ||form1.clothing.url==null||form1.clothing.name==null) {
+                alert('请填写完整信息')
                 return false
             }
             form1.clothing.srcList = '["' + this.form.clothing.url + '"]';
-            form1.clothing.type=1;
+            form1.clothing.type=0;
             if(!form1.clothing.userid){
                 form1.clothing.userid=localStorage.getItem('userid');
             }
             console.info(form1);
-            axios.post('/v1/pants/add', form1)
+            await axios.post('/v1/pants/add', form1)
                 .then((response) => {
                     console.info("提交成功");
+                    if(this.isnewclothing){
+                        this.newclothingid=response.data.clothing.id
+                        this.$refs.tagWindow.newclothing(this.newclothingid)
+                    }
+
                 })
                 .catch((error) => {
                     console.error(error);
