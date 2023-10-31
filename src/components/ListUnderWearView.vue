@@ -124,6 +124,10 @@ const fetchData = async (tagid:Number|undefined) => {
           clothing_length:item.clothingLength,
           shoulder_length:item.shoulderWidth,
           sleeve_length:item.sleeveLength,
+          waitswidth:item.waitswidth,
+          hips:item.hips,
+          pantslength:item.pantslength,
+          pantsopeningwidth:item.pantsopeningwidth,
           season:item.clothing.season
         }));}
 

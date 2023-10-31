@@ -10,7 +10,7 @@
             <el-button @click="inputvalue=null">重置</el-button>
             <el-button @click="openWindow" size="small" type="primary">添加</el-button>
     <el-card>
-    <el-table  :data="clothingList.filter(data=>!inputvalue||(data.season==inputvalue)) " table-layout="fixed" :show-overflow-tooltip="true" 
+    <el-table   :data="clothingList.filter(data=>!inputvalue||(data.season==inputvalue)) " table-layout="fixed" :show-overflow-tooltip="true" 
     :row-style="{height:'20px'}" :cell-style="{padding:'0px'}" style="font-size: 10px"
       fit border >
         
@@ -26,7 +26,7 @@
         <el-table-column prop="pantslength" label="裤长" min-width="50%" />
         <el-table-column prop="halfthignwidth" label="底裤裆" min-width="100%" />
         <el-table-column prop="crotchup" label="上裆" min-width="100%" />
-        <el-table-column prop="inseamlength" label="裤内裆长" min-width="100%" />
+        <el-table-column  prop="inseamlength" label="裤内裆长" min-width="100%" />
         <el-table-column prop="pantsopeningwidth" label="裤口宽" min-width="100%" />
         <el-table-column label="查看" >
             <template #default="scope">
@@ -121,11 +121,13 @@ const fetchData = async (tagid:Number|undefined) => {
           name: item.clothing.name,
           url: item.clothing.url,
           srcList: item.clothing.srcList ? JSON.parse(item.clothing.srcList) : [],
-          body_width:item.bodyWidth,
-          clothing_length:item.clothingLength,
-          shoulder_length:item.shoulderWidth,
-          sleeve_length:item.sleeveLength,
-          season:item.clothing.season
+          waitswidth:item.waitswidth,
+          hips:item.hips,
+          pantslength:item.pantslength,
+          pantsopeningwidth:item.pantsopeningwidth, 
+          inseamlength:item.inseamlength,
+          halfthignwidth:item.halfthignwidth,
+          crotchup:item.crotchup,
         }));}
 
     };

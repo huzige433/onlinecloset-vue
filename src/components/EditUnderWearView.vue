@@ -1,7 +1,7 @@
 <!--一个组件多用，添加/编辑弹窗-->
 <template>
     <div class="mycontainer">
-        <el-form :inline="true" ref="form" label-width="40px">
+        <el-form :inline="true" ref="form" label-width="auto">
             <TagsView ref="tagWindow" />
             <el-form-item label="图片">
                 <el-upload class="avatar-uploader" action="lei" :on-change="handleChange" :show-file-list="false"
