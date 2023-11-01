@@ -10,28 +10,28 @@
             <el-col :span="6">
               <router-link :to="{name:'coat'}">
                 <div class="grid-content ep-bg-purple" style="justify-content: center;display: flex;">
-                  <el-text class="mx-1" style="color: aliceblue;font-size: large;">上装({{ countjson.coatcount }})</el-text>
+                  <el-text class="mx-1" style="color: aliceblue;font-size: large;">上装<br/>({{ countjson.coatcount }})</el-text>
                 </div>
               </router-link>
             </el-col>
             <el-col :span="6">
               <router-link :to="{name:'pants'}">
                 <div class="grid-content ep-bg-purple" style="justify-content: center;display: flex;">
-                  <el-text class="mx-1" style="color: aliceblue;font-size: large;">裤子({{ countjson.pantscount }})</el-text>
+                  <el-text class="mx-1" style="color: aliceblue;font-size: large;">裤子<br/>({{ countjson.pantscount }})</el-text>
                 </div>
               </router-link>
             </el-col>
             <el-col :span="6">
               <router-link :to="{name:'underwear'}">
                 <div class="grid-content ep-bg-purple" style="justify-content: center;display: flex;">
-                  <el-text class="mx-1" style="color: aliceblue;font-size: large;">内衣({{ countjson.underwearcount }})</el-text>
+                  <el-text class="mx-1" style="color: aliceblue;font-size: large;">内衣<br/>({{ countjson.underwearcount }})</el-text>
                 </div>
               </router-link>
             </el-col>
             <el-col :span="6">
               <router-link :to="{name:'shoe'}">
                 <div class="grid-content ep-bg-purple" style="justify-content: center;display: flex;">
-                  <el-text class="mx-1" style="color: aliceblue;font-size: large;">鞋子({{ countjson.shoecount }})</el-text>
+                  <el-text class="mx-1" style="color: aliceblue;font-size: large;">鞋子<br/>({{ countjson.shoecount }})</el-text>
                 </div>
               </router-link>
             </el-col>
@@ -41,7 +41,7 @@
             <el-col :span="6">
               <router-link :to="{name:'recycle'}">
               <div class="grid-content ep-bg-purple" style="justify-content: center;display: flex; min-height: 20vh;">
-                  <el-text class="mx-1" style="color: aliceblue;font-size: large;">回收({{ countjson.recycle }})</el-text>
+                  <el-text class="mx-1" style="color: aliceblue;font-size: large;">回收<br/>({{ countjson.recycle }})</el-text>
                 </div>
               </router-link>
             </el-col>
