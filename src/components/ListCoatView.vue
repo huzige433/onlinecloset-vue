@@ -9,9 +9,9 @@
             </el-select>
             <el-button @click="inputvalue=null"  >重置</el-button>
             <el-button @click="openWindow" size="small" type="primary">添加</el-button>
-    <el-card>
+    <el-card style="padding-bottom: 15%;">
         <el-table :data="clothingList.filter(data=>!inputvalue||(data.season==inputvalue))" table-layout="fixed" :show-overflow-tooltip="false" 
-    :row-style="{height:'30px'}" :cell-style="{padding:'0px'}" style="font-size: 10px" 
+    :row-style="{height:'30px'}" :cell-style="{padding:'0px'}"  style="font-size: 10px;" 
       border >
         
         <el-table-column label="览" min-width="35">

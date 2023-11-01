@@ -7,7 +7,7 @@
         <el-row :gutter="10">
           <el-col v-for="clothing in clothingdata" :key="clothing.id" :span="4">
               <div class="bg-purple" >
-                <el-image :src="clothing.url" style="width: 50px;height: auto;" @touchstart.prevent="goTouchstart(clothing.id)"></el-image>
+                <el-image :src="clothing.url" style="width: 50px;height: auto;" @touchstart.prevent="goTouchstart(clothing.id)" @touchend.prevent="goTouchend()"></el-image>
             </div>
           </el-col>
         </el-row>
@@ -56,13 +56,21 @@ export default {
                         _this.clothingdata=_this.clothingdata.filter(item=>item.id!==clothingid)
                     })
                     .catch(error=>{
-                        throw new Error(error.response.data)
+                        console.log(error)
                     })
     
-                })
-            }, 1000);
+                }).catch(_=>{})
+            }, 600);
 
-        }
+        },
+        
+//手如果在600毫秒内就释放，则取消长按事件
+goTouchend() {
+    let _this = this;
+    clearTimeout(_this.timeOutEvent);
+    if (_this.timeOutEvent !== 0) {
+        //  处理单击事件}
+    }}
     },
     data() {
         return {

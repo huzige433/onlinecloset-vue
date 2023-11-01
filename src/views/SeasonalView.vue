@@ -46,7 +46,7 @@
         <el-divider></el-divider>
         <el-row :gutter="10">
           <el-lable>鞋子</el-lable>
-          <el-col v-for="clothing in shoedata" :key="clothing.id" :span="4">
+          <el-col v-for="clothing in shoedata" :key="clothing.id" :span="4" style="margin-bottom: 15%;">
               <div class="bg-purple">
                 <el-image :src="clothing.url" style="width: 50px; height: auto;"></el-image>
             </div>
