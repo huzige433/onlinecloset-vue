@@ -13,41 +13,42 @@
             </el-select>
             <el-button @click="value=null;getdata()">重置</el-button>
             </el-page-header>
+            <el-divider></el-divider>
         <el-row :gutter="10">
-          <el-col v-for="clothing in coatdata" :key="clothing.id" :span="8">
-              <span>上装</span>
+          <el-lable>上装</el-lable>
+          <el-col v-for="clothing in coatdata" :key="clothing.id" :span="4">
+              
               <div class="bg-purple">
-                <el-image :src="clothing.url"></el-image>
+                <el-image :src="clothing.url" style="width: 50px; height: auto;"></el-image>
             </div>
           </el-col>
         </el-row>
+        <el-divider></el-divider>
         <el-row :gutter="10">
-          <el-col v-for="clothing in pantsdata" :key="clothing.id" :span="8">
-
-              <span>下装</span>
+          <el-lable>下装</el-lable>
+          <el-col v-for="clothing in pantsdata" :key="clothing.id" :span="4">
               <div class="bg-purple">
-                <el-image :src="clothing.url"></el-image>
+                <el-image :src="clothing.url" style="width: 50px; height: auto;"></el-image>
               </div>
 
           </el-col>
         </el-row>
+        <el-divider></el-divider>
         <el-row :gutter="10">
-          <el-col v-for="clothing in underweardata" :key="clothing.id" :span="8">
-
-              <span>内衣</span>
+          <el-lable>内衣</el-lable>
+          <el-col v-for="clothing in underweardata" :key="clothing.id" :span="4">
               <div class="bg-purple">
-                <el-image :src="clothing.url"></el-image>
+                <el-image :src="clothing.url" style="width: 50px; height: auto;"></el-image>
 
             </div>
           </el-col>
         </el-row>
+        <el-divider></el-divider>
         <el-row :gutter="10">
-          <el-col v-for="clothing in clothingdata" :key="clothing.id" :span="8">
-            <div v-if="clothing.type === 3">
-              <span>鞋子</span>
+          <el-lable>鞋子</el-lable>
+          <el-col v-for="clothing in shoedata" :key="clothing.id" :span="4">
               <div class="bg-purple">
-                <el-image :src="clothing.url"></el-image>
-              </div>
+                <el-image :src="clothing.url" style="width: 50px; height: auto;"></el-image>
             </div>
           </el-col>
         </el-row>
@@ -84,6 +85,7 @@ export default {
                 this.coatdata=this.clothingdata.filter((data)=>{return data.type === 0})
                 this.pantsdata=this.clothingdata.filter((data)=>{return data.type === 1})
                 this.underweardata=this.clothingdata.filter((data)=>{return data.type === 2})
+                this.shoedata=this.clothingdata.filter((data)=>{return data.type === 3})
             })
             .catch((error)=>{
                 console.log(error)
@@ -100,7 +102,8 @@ export default {
             value:'',
             coatdata:[],
             pantsdata:[],
-            underweardata:[]
+            underweardata:[],
+            shoedata:[],
         };
     },
 }

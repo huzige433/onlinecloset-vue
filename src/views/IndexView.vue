@@ -3,7 +3,7 @@
     <div class="common-layout">
       <el-container>
         <el-header style="height: 11vh;">
-          <el-avatar :src="avatarsrc" size="large" @click="changeuser"></el-avatar>
+          <el-avatar :src="avatarsrc" size="large" @click="changeuser" style="right: 2%;top:1%;position: absolute;"></el-avatar>
         </el-header>
         <el-main style="margin-left: 1rem;width: 88%;">
           <el-row :gutter="20">

@@ -10,21 +10,21 @@
             <el-button @click="inputvalue=null"  >重置</el-button>
             <el-button @click="openWindow" size="small" type="primary">添加</el-button>
     <el-card>
-        <el-table :data="clothingList.filter(data=>!inputvalue||(data.season==inputvalue))" table-layout="fixed" :show-overflow-tooltip="true" 
-    :row-style="{height:'20px'}" :cell-style="{padding:'0px'}" style="font-size: 10px"
-     fit border >
+        <el-table :data="clothingList.filter(data=>!inputvalue||(data.season==inputvalue))" table-layout="fixed" :show-overflow-tooltip="false" 
+    :row-style="{height:'30px'}" :cell-style="{padding:'0px'}" style="font-size: 10px" 
+      border >
         
-        <el-table-column label="览" min-width="50%" >
+        <el-table-column label="览" min-width="35">
             <template #default="scope" >
-                <el-image style="width: 100%; height: 100%; display: block; margin: 0 auto;" :src="scope.row.url" :zoom-rate="1.2"
+                <el-image style="height: 30px; display: block; margin: 0 auto;" :src="scope.row.url" :zoom-rate="1.2"
             :preview-src-list="scope.row.srcList" :initial-index="4" fit="contain" :preview-teleported="true" />
             </template>
         </el-table-column>
-        <el-table-column prop="name" label="名" :filters="[{text:'短袖',value:'短袖'},{text:'衬衫',value:'衬衫'}]" :filter-method="filterHandler" min-width="40%" />
-        <el-table-column prop="body_width" label="身宽" min-width="90%" />
-        <el-table-column prop="clothing_length" label="衣长" min-width="50%" />
-        <el-table-column prop="shoulder_length" label="肩宽" min-width="50%" />
-        <el-table-column prop="sleeve_length" label="袖长" min-width="100%" />
+        <el-table-column prop="name" label="名" :filters="[{text:'短袖',value:'短袖'},{text:'衬衫',value:'衬衫'}]" :filter-method="filterHandler" />
+        <el-table-column prop="body_width" label="身宽"  />
+        <el-table-column prop="clothing_length" label="衣长"  />
+        <el-table-column prop="shoulder_length" label="肩宽" />
+        <el-table-column prop="sleeve_length" label="袖长"  />
         <el-table-column label="查看" >
             <template #default="scope">
                 <el-button style="display:block;margin: 0 auto;" size="small"  @click="handleEdit(scope.$index, true)" >查看</el-button>
@@ -68,7 +68,6 @@ const options=[{value: '0', label: '夏'},
                      {value: '2', label: '春秋'}
                     ];
 const inputvalue=ref();
-
 
 interface Clothing {
     id:Number
@@ -179,6 +178,13 @@ const filterHandler=(value:any, row:any, column:any)=>{
 
 <style>
 .el-table .cell.el-tooltip{
-    padding:0 2px;
+    padding:0;
+}
+.el-table td.el-table__cell div{
+    padding: 0;
+    text-align: center;
+}
+.el-table .cell{
+    text-align: center;
 }
 </style>

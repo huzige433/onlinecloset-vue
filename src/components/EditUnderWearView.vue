@@ -150,7 +150,7 @@ export default {
                 return false
             }
             form1.clothing.srcList = '["' + this.form.clothing.url + '"]';
-            form1.clothing.type=0;
+
             if(!form1.clothing.userid){
                 form1.clothing.userid=localStorage.getItem('userid');
             }

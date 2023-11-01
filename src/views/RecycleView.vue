@@ -3,11 +3,11 @@
         <el-container>
             <el-main>
               <el-page-header @back="goBack" ></el-page-header>
+              <span>回收站(长按移出回收站)</span>
         <el-row :gutter="10">
-          <span>回收站</span>
           <el-col v-for="clothing in clothingdata" :key="clothing.id" :span="4">
-              <div class="bg-purple">
-                <el-image :src="clothing.url"></el-image>
+              <div class="bg-purple" >
+                <el-image :src="clothing.url" style="width: 100px;height: auto;" @touchstart.prevent="goTouchstart(clothing.id)"></el-image>
             </div>
           </el-col>
         </el-row>
@@ -40,6 +40,28 @@ export default {
             .catch((error)=>{
                 console.log(error)
             })
+        },
+        goTouchstart(clothingid){ 
+            let _this = this;
+            clearTimeout(_this.timeOutEvent);
+            _this.timeOutEvent = setTimeout(function() {
+                _this.timeOutEvent = 0;
+                //  处理长按事件...
+                _this.$confirm("是否取回?").then(_=>{
+                    console.log(clothingid)
+                    const url=`/v1/redeleted/${clothingid}`
+                    axios.get(url)
+                    .then(response=>{
+                        console.log(response.data)
+                        _this.clothingdata=_this.clothingdata.filter(item=>item.id!==clothingid)
+                    })
+                    .catch(error=>{
+                        throw new Error(error.response.data)
+                    })
+    
+                })
+            }, 1000);
+
         }
     },
     data() {
@@ -49,7 +71,8 @@ export default {
                      {value: '1', label: '冬'},  
                      {value: '2', label: '春秋'}
                     ],
-            value:''
+            value:'',
+            timeOutEvent:0 //记录触摸时长
         };
     },
 }

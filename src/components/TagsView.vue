@@ -104,11 +104,12 @@ export default {
       })
     },
     handleClose(tag) {
+      this.$confirm('确认关闭？所有将解除标签关联').then(_=>{
       if(this.clothing.id!=''){
         this.deldetetag(tag,this.clothing.id)
       }else{
         this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
-      }
+      }}).catch(_=>{})
       
 
     },
@@ -125,12 +126,15 @@ export default {
       let inputValue = this.inputValue;
         if (inputValue&&!this.dynamicTags.find(tag => tag.name === inputValue)&&!this.options.find(tag => tag.value === inputValue)) {
           console.log('op新增op添加tag')
-          let tagid=await this.addoptions(inputValue,this.clothing.type)
+          this.$confirm(`是否创建标签${inputValue}?`).then(async _=>{
+            let tagid=await this.addoptions(inputValue,this.clothing.type)
           if(this.clothing.id!=''){
             this.addtag(tagid,this.clothing.id,inputValue)
           }else{
             this.dynamicTags.push({id:tagid,name:inputValue});
           }
+          }).catch(_=>{})
+
           
 
           

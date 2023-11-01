@@ -10,25 +10,25 @@
             <el-button @click="inputvalue=null">重置</el-button>
             <el-button @click="openWindow" size="small" type="primary">添加</el-button>
     <el-card>
-    <el-table  :data="clothingList.filter(data=>!inputvalue||(data.season==inputvalue)) " table-layout="fixed" :show-overflow-tooltip="true" 
-    :row-style="{height:'20px'}" :cell-style="{padding:'0px'}" style="font-size: 10px"
+    <el-table  :data="clothingList.filter(data=>!inputvalue||(data.season==inputvalue)) " table-layout="fixed" 
+    :row-style="{height:'30px'}" :cell-style="{padding:'0px'}" style="font-size: 10px"
       fit border >
         
-      <el-table-column label="览" min-width="50%" >
+      <el-table-column label="览" min-width="35" >
             <template #default="scope" >
-                <el-image style="width: 100%; height: 100%; display: block; margin: 0 auto;" :src="scope.row.url" :zoom-rate="1.2"
+                <el-image style="height: 30px; display: block; margin: 0 auto;" :src="scope.row.url" :zoom-rate="1.2"
             :preview-src-list="scope.row.srcList" :initial-index="4" fit="contain" :preview-teleported="true" />
             </template>
         </el-table-column>
-        <el-table-column prop="name" label="名" :filters="[{text:'夏',value:'0'},{text:'东',value:'1'}]" :filter-method="filterHandler" min-width="40%" />
-        <el-table-column prop="clothing_length" label="衣长" min-width="90%" />
-        <el-table-column prop="shoulder_length" label="肩宽" min-width="90%" />
-        <el-table-column prop="body_width" label="身宽" min-width="90%" />
-        <el-table-column prop="sleeve_length" label="袖长" min-width="90%" />
-        <el-table-column prop="waitswidth" label="腰围" min-width="90%" />
-        <el-table-column prop="hips" label="臀围" min-width="50%" />
-        <el-table-column prop="pantslength" label="裤长" min-width="50%" />
-        <el-table-column prop="pantsopeningwidth" label="裤口宽" min-width="100%" />
+        <el-table-column prop="name" label="名" :filters="[{text:'夏',value:'0'},{text:'东',value:'1'}]" :filter-method="filterHandler"  />
+        <el-table-column prop="clothing_length" label="衣长"  />
+        <el-table-column prop="shoulder_length" label="肩宽"  />
+        <el-table-column prop="body_width" label="身宽"  />
+        <el-table-column prop="sleeve_length" label="袖长"  />
+        <el-table-column prop="waitswidth" label="腰围"  />
+        <el-table-column prop="hips" label="臀围"  />
+        <el-table-column prop="pantslength" label="裤长"  />
+        <el-table-column prop="pantsopeningwidth" label="裤口宽" />
         <el-table-column label="查看" >
             <template #default="scope">
                 <el-button style="display:block;margin: 0 auto;" size="small"  @click="handleEdit(scope.$index, true)" >查看</el-button>

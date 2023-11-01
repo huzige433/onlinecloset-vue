@@ -10,3 +10,7 @@ body,
 a {
     text-decoration: none;
 }
+
+.el-textarea.is-disabled .el-textarea__inner,.el-input.is-disabled .el-input__inner{
+    -webkit-text-fill-color: black;
+}
