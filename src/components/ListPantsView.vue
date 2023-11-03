@@ -8,7 +8,7 @@
             </el-option>
             </el-select>
             <el-button @click="inputvalue=null">重置</el-button>
-            <el-button @click="openWindow" size="small" type="primary">添加</el-button>
+            <el-button @click="openWindow"  type="primary">添加</el-button>
     <el-card style="padding-bottom: 15%;">
     <el-table   :data="clothingList.filter(data=>!inputvalue||(data.season==inputvalue)) " table-layout="fixed" :show-overflow-tooltip="false" 
     :row-style="{height:'30px'}" :cell-style="{padding:'0px'}" style="font-size: 10px" row-key="clothingid"
@@ -21,6 +21,7 @@
             </template>
         </el-table-column>
         <el-table-column prop="name" label="名字" :filters="getfildername" :filter-method="filterHandler" />
+        <el-table-column prop="size" label="尺码"  />
         <el-table-column prop="waitswidth" label="腰围"  />
         <el-table-column prop="hips" label="臀围"  />
         <el-table-column prop="pantslength" label="裤长"  />
@@ -82,6 +83,7 @@ interface Clothing {
     name: string
     url: string
     srcList: string[]
+    size:string
     waitswidth:string
     hips:string
     pantslength:string
@@ -122,6 +124,7 @@ const fetchData = async (tagid:Number|undefined) => {
           name: item.clothing.name,
           url: item.clothing.url,
           srcList: item.clothing.srcList ? JSON.parse(item.clothing.srcList) : [],
+          size:item.clothing.size,
           waitswidth:item.waitswidth,
           hips:item.hips,
           pantslength:item.pantslength,

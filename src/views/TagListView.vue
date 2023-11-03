@@ -33,15 +33,19 @@ export default {
             ,{value: 1, label: '裤子'}
             ,{value: 2, label: '内衣'}
             ,{value: 3, label: '鞋子'}],
-            inputvalue: '',
+            inputvalue: null,
             temptagitems: [],
         }
     },
     mounted(){
         this.getTagList()
+        
     },
     computed:{
 
+    },
+    destroyed(){
+        sessionStorage.removeItem("taginputfilter")
     },
     methods: {
         computedRoute(tag) {
@@ -74,16 +78,22 @@ export default {
                     }
                 })
                 this.temptagitems=this.tagitems
+                if(sessionStorage.getItem('taginputfilter')!==null){
+                this.inputvalue=Number(sessionStorage.getItem('taginputfilter'))
+                this.filtertype(this.inputvalue)
+        }
             }).catch((err) => {
                 console.log(err)
             })
         },
         filtertype(value){
             this.temptagitems=this.tagitems.filter((item)=>{return item.clothingtype === value})
+            sessionStorage.setItem('taginputfilter',this.inputvalue)
         },
         reinitdata(){
             this.inputvalue=null;
             this.temptagitems=this.tagitems
+            sessionStorage.removeItem("taginputfilter")
 
         },
         handleClose(tag){

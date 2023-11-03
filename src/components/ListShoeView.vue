@@ -8,7 +8,7 @@
             </el-option>
             </el-select>
             <el-button @click="inputvalue=null">重置</el-button>
-            <el-button @click="openWindow" size="small" type="primary">添加</el-button>
+            <el-button @click="openWindow"  type="primary">添加</el-button>
     <el-card style="padding-bottom: 15%;">
     <el-table  :data="clothingList.filter(data=>!inputvalue||(data.season==inputvalue)) " table-layout="fixed" :show-overflow-tooltip="false" 
     :row-style="{height:'30px'}" :cell-style="{padding:'0px'}" style="font-size: 10px" row-key="clothingid"
@@ -21,7 +21,7 @@
             </template>
         </el-table-column>
         <el-table-column prop="name" label="名字" :filters="getfildername" :filter-method="filterHandler" />
-
+        <el-table-column prop="size" label="尺码"  />
         <el-table-column label="查看" >
             <template #default="scope">
                 <el-button style="display:block;margin: 0 auto;" size="small"  @click="handleEdit(scope.$index,scope.row.id,true)" >查看</el-button>
@@ -76,6 +76,7 @@ interface Clothing {
     name: string
     url: string
     srcList: string[]
+    size:string
     season:string
 
 }
@@ -108,6 +109,7 @@ const fetchData = async (tagid:Number|undefined) => {
           name: item.clothing.name,
           url: item.clothing.url,
           srcList: item.clothing.srcList ? JSON.parse(item.clothing.srcList) : [],
+          size:item.clothing.size,
           body_width:item.bodyWidth,
           clothing_length:item.clothingLength,
           shoulder_length:item.shoulderWidth,
