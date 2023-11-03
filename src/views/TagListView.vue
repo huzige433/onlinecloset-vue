@@ -50,6 +50,10 @@ export default {
         sessionStorage.removeItem("taginputfilter")
     },
     methods: {
+        goBack() {
+            this.$router.push('/')
+
+        },
         computedRoute(tag) {
             console.log(tag.clothingtype )
             switch (tag.clothingtype) {
