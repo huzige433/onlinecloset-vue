@@ -13,19 +13,25 @@
             </el-select>
             <el-button @click="value=null;getdata()">重置</el-button>
             </el-page-header>
-            <el-divider></el-divider>
+        <el-card>
+          <div slot="header" class="clearfix">
+          <span style="color: black;">上装</span>
+          </div>
         <el-row :gutter="10">
-          <el-lable>上装</el-lable>
           <el-col v-for="clothing in coatdata" :key="clothing.id" :span="4">
-              
               <div class="bg-purple">
                 <el-image :src="clothing.url" style="width: 50px; height: auto;"></el-image>
             </div>
           </el-col>
         </el-row>
-        <el-divider></el-divider>
+        </el-card>
+
+          <el-card>
+          <div slot="header" class="clearfix">
+          <span style="color: black;">下装</span>
+          </div>
         <el-row :gutter="10">
-          <el-lable>下装</el-lable>
+          
           <el-col v-for="clothing in pantsdata" :key="clothing.id" :span="4">
               <div class="bg-purple">
                 <el-image :src="clothing.url" style="width: 50px; height: auto;"></el-image>
@@ -33,9 +39,13 @@
 
           </el-col>
         </el-row>
-        <el-divider></el-divider>
+        </el-card>
+        <el-card>
+
+          <div slot="header" class="clearfix">
+          <span style="color: black;">内衣</span>
+          </div>
         <el-row :gutter="10">
-          <el-lable>内衣</el-lable>
           <el-col v-for="clothing in underweardata" :key="clothing.id" :span="4">
               <div class="bg-purple">
                 <el-image :src="clothing.url" style="width: 50px; height: auto;"></el-image>
@@ -43,15 +53,21 @@
             </div>
           </el-col>
         </el-row>
-        <el-divider></el-divider>
+        </el-card>
+      <el-card>
+
+          <div slot="header" class="clearfix">
+          <span style="color: black;">鞋子</span>
+          </div>
         <el-row :gutter="10">
-          <el-lable>鞋子</el-lable>
+          
           <el-col v-for="clothing in shoedata" :key="clothing.id" :span="4" style="padding-bottom: 15%;">
               <div class="bg-purple">
                 <el-image :src="clothing.url" style="width: 50px; height: auto;"></el-image>
             </div>
           </el-col>
         </el-row>
+      </el-card>
         </el-main>
         </el-container>
     </div>
@@ -115,8 +131,13 @@ export default {
     display: flex;
     flex-wrap: wrap
   }
-.clearfix span{
-    color: azure;
-    font-size: large;
-}
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+  .clearfix:after {
+    clear: both
+  }
+
 </style>

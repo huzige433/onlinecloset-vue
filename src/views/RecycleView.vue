@@ -4,6 +4,7 @@
             <el-main>
               <el-page-header @back="goBack" ></el-page-header>
               <span>回收站(长按移出回收站)</span>
+        <el-card>
         <el-row :gutter="10">
           <el-col v-for="clothing in clothingdata" :key="clothing.id" :span="4">
               <div class="bg-purple" >
@@ -11,6 +12,7 @@
             </div>
           </el-col>
         </el-row>
+        </el-card>
         </el-main>
         </el-container>
     </div>
