@@ -11,16 +11,16 @@
             <el-button @click="openWindow" size="small" type="primary">添加</el-button>
     <el-card style="padding-bottom: 15%;">
     <el-table  :data="clothingList.filter(data=>!inputvalue||(data.season==inputvalue)) " table-layout="fixed" 
-    :row-style="{height:'30px'}" :cell-style="{padding:'0px'}" style="font-size: 10px"
+    :row-style="{height:'30px'}" :cell-style="{padding:'0px'}" style="font-size: 10px" row-key="clothingid"
       fit border >
         
-      <el-table-column label="览" min-width="35" >
+      <el-table-column label="预览" min-width="35" >
             <template #default="scope" >
                 <el-image style="height: 30px; display: block; margin: 0 auto;" :src="scope.row.url" :zoom-rate="1.2"
             :preview-src-list="scope.row.srcList" :initial-index="4" fit="contain" :preview-teleported="true" />
             </template>
         </el-table-column>
-        <el-table-column prop="name" label="名" :filters="[{text:'夏',value:'0'},{text:'东',value:'1'}]" :filter-method="filterHandler"  />
+        <el-table-column prop="name" label="名字" :filters="getfildername" :filter-method="filterHandler" />
         <el-table-column prop="clothing_length" label="衣长"  />
         <el-table-column prop="shoulder_length" label="肩宽"  />
         <el-table-column prop="body_width" label="身宽"  />
@@ -31,12 +31,12 @@
         <el-table-column prop="pantsopeningwidth" label="裤口宽" />
         <el-table-column label="查看" >
             <template #default="scope">
-                <el-button style="display:block;margin: 0 auto;" size="small"  @click="handleEdit(scope.$index, true)" >查看</el-button>
+                <el-button style="display:block;margin: 0 auto;" size="small"  @click="handleEdit(scope.$index,scope.row.id, true)" >查看</el-button>
             </template>
         </el-table-column>
         <el-table-column label="修改" >
             <template #default="scope">
-                <el-button style="display:block;margin: 0 auto;" size="small" @click="handleEdit(scope.$index, false)">修改</el-button>
+                <el-button style="display:block;margin: 0 auto;" size="small" @click="handleEdit(scope.$index,scope.row.id, false)">修改</el-button>
             </template>
         </el-table-column>
         <el-table-column label="丢弃" >
@@ -59,15 +59,17 @@
 </template>
   
 <script lang="ts" setup>
-import { ref,nextTick,onMounted  } from 'vue';
+import { ref,nextTick,onMounted,computed} from 'vue';
 import EditUnderWearView from './EditUnderWearView.vue';
 import axios from 'axios';
 import { useRoute } from 'vue-router';
+import Sortable from 'sortablejs'
 
 const windowVisible = ref(false);
 const inputdisable = ref(false);
 const popWindow = ref();
 const tagid= ref<Number>();
+const orderref=ref();
 const options=[{value: '0', label: '夏'},
                      {value: '1', label: '冬'},  
                      {value: '2', label: '春秋'}
@@ -130,13 +132,18 @@ const fetchData = async (tagid:Number|undefined) => {
           pantsopeningwidth:item.pantsopeningwidth,
           season:item.clothing.season
         }));}
+        sortArry(clothingList.value)
 
     };
-
+    onMounted(()=>{
     const route = useRoute();
     tagid.value=Number(route.query.tagid)
     console.log(tagid.value)
     fetchData(tagid.value)
+    initSort()
+    
+});
+
 
 const  openWindow= () =>{
         windowVisible.value=true
@@ -146,14 +153,13 @@ const  openWindow= () =>{
     })
       }
 
-const handleEdit = (index: number,edit:boolean) => {
+const handleEdit = (index: number,coatid: Number,edit:boolean) => {
+    const coat=coatlist.filter((item:any) => item.id == coatid)[0]
     windowVisible.value=true
     inputdisable.value=edit
     nextTick(()=>{
-        popWindow.value.dataInit(coatlist[index])
+        popWindow.value.dataInit(coat)
     })
-    
-    
 }
 
 const handleDelete = (index: number, row: Clothing) => {
@@ -181,9 +187,77 @@ const  postform = async () => {
 
 const filterHandler=(value:any, row:any, column:any)=>{
         const property = column['property'];
-        return row[property].indexOf(value)>-1;
+        return row[property]===value;
       }
+      const  initSort=()=> {
+const el = document.querySelectorAll('.el-table__body-wrapper  table  tbody')[0]
+// const sortable = new Sortable(el, options);
+// 根据具体需求配置options配置项
+const sortable = new Sortable(el, {
+handle: '.el-image',
+animation: 500,
+delay:30,
+onEnd: (e:any) => { // 监听拖动结束事件
+    const arr = clothingList.value; // 获取表数据
+    arr.splice(e.newIndex, 0, arr.splice(e.oldIndex, 1)[0]); // 数据处理，获取最新的表格数据
+    nextTick(() => {
+    clothingList.value = arr;
+    console.log(clothingList.value);
+    const order =clothingList.value.map((item:any)=>{
+        return item.clothingid
+    })
+    console.log(order)
+    saveorder(order)
 
+});
+}
+})
+}
+
+const sortArry=(arry:Array<Number>|any)=>{
+    const headers={'userid':localStorage.getItem('userid')}
+    axios.get(`/v1/sort/2`,{headers:headers}).then(
+        (res:any)=>{
+            orderref.value=res.data
+            let order=orderref.value.sortarry
+            console.log(order)
+            const filteredArr = clothingList.value;
+            filteredArr.sort((a, b) => {
+            const indexA = order.indexOf(a.clothingid);
+            const indexB = order.indexOf(b.clothingid);
+            if (indexA == -1 && indexB === -1) {
+                return 0; // 如果两个对象的 id 都不在 order 数组中，则保持它们的原始顺序
+            } else if (indexA === -1) {
+                return 1; // 如果只有 a 的 id 不在 order 数组中，则将 a 排在 b 后面
+            } else if (indexB === -1) {
+                return -1; // 如果只有 b 的 id 不在 order 数组中，则将 b 排在 a 后面
+            } else {
+                return indexA - indexB; // 如果两个对象的 id 都在 order 数组中，则按照它们在 order 数组中的顺序排序
+            }
+            });
+        }
+    ).catch(_=>{})
+}
+
+const saveorder=(arry:Array<Number>|any)=>{
+    let order=orderref.value
+    const data={'id':order?order.id:undefined,"type":order?order.type:2,"userid":localStorage.getItem("userid"),'sortarry':JSON.stringify(arry)}
+    axios.post("/v1/sort",data).then(
+        (res:any)=>{
+            console.log(res.data)
+        })
+}
+
+const getfildername=computed(()=>{
+    const uniqueClothingNames = [...new Set(clothingList.value.map(item => item.name))];
+    console.log(uniqueClothingNames)
+    return uniqueClothingNames.map((item:any)=>{
+        return {
+            text:item,
+            value:item
+        }
+    })
+})
 </script>
 
 <style>

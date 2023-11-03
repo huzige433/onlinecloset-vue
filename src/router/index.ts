@@ -11,58 +11,62 @@ const routes: Array<RouteRecordRaw> = [
     path: "/home",
     name: "home",
     component: Index,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true,title:'首页' }
   },
   {
     path: "/",
     redirect:'/home',
+    meta:{title:'首页'}
   },
   {
     path: "/user",
     name:'user',
     component: User,
+    meta:{title:'账号'}
     
   },
   {
-    path: "/list/coat/:tagid?",
+    path: "/list/coat",
     name:'coat',
     component: List,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true ,title:'衣服'}
+    
   },
   {
     path: "/list/pants",
     'name':'pants',
     component: List,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true,title:'裤子' }
   },
   {
     path: "/list/underwear",
     'name':'underwear',
     component: List,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true,title:'内衣' }
   },
   {
     path: "/list/shoe",
     'name':'shoe',
     component: List,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true,title:'鞋子' }
   },
   {
     path: "/seasonal",
     name: "seasonal",
     component:Seasonal,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true ,title:'按季节分类'}
   },
   {
     path: "/recycle",
     name: "recycle",
     component:Recycle,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true,title:'回收站' }
   },
   {
     path: "/taglist",
     'name':'taglist',
-    component: TagList
+    component: TagList,
+    meta: { title:'按标签分类' }
   }
 ];
 
@@ -78,6 +82,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth&&!isLoggedIn) {
     next('/user') // 如果需要登录但用户未登录，则跳转到登录页面
   } else {
+    to.meta.title && (document.title = to.meta.title as string);
     next() // 否则继续导航
   }
 })
