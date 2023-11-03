@@ -2,8 +2,7 @@
     <div class="recycle">
         <el-container>
             <el-main>
-                <el-page-header @back="goBack" v-if="showme"></el-page-header>
-                <span v-if="showme">回收站</span>
+                <el-page-header @back="goBack" v-if="showme" content="回收站"></el-page-header>
                 <el-card>
                     <el-row :gutter="10">
                         <el-col v-for="clothing in clothingdata" :key="clothing.id" :span="4">

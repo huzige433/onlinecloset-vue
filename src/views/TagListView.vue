@@ -1,6 +1,11 @@
 <template>
     <div class="taglist">
-        <el-header>
+        
+
+
+        <el-container>
+            <el-main style="text-align: center;">
+            <el-page-header @back="goBack" content="按季节展示标签">
             <el-select v-model="inputvalue" placeholder="筛选类别" @change="filtertype" clearable remote>
             <el-option
             v-for="item in options"
@@ -10,10 +15,7 @@
             </el-option>
             </el-select>
             <el-button type="primary" @click="reinitdata">重置</el-button>
-        </el-header>
-        <el-container>
-            <el-header></el-header>
-            <el-main style="text-align: center;">
+            </el-page-header>
                 <el-tag :key="tag.id" v-for="tag in temptagitems" :disable-transitions="false" @close="handleClose(tag)" closable>
                     <router-link :to="computedRoute(tag)" class="tag-link">{{ tag.label }}</router-link>
                 </el-tag>
