@@ -29,14 +29,14 @@ const routes: Array<RouteRecordRaw> = [
     path: "/list/coat",
     name:'coat',
     component: List,
-    meta: { requiresAuth: true ,title:'衣服'}
+    meta: { requiresAuth: true ,title:'上装'}
     
   },
   {
     path: "/list/pants",
     'name':'pants',
     component: List,
-    meta: { requiresAuth: true,title:'裤子' }
+    meta: { requiresAuth: true,title:'下装' }
   },
   {
     path: "/list/underwear",

@@ -188,7 +188,7 @@ export default {
         console.log(res.data)
       }).catch(err=>{console.log(err)})
     },
-    //新建衣服的保存全部标签
+    //新建上装的保存全部标签
     newclothing(clothingid){
       this.dynamicTags.map((tag)=>{
         axios.post('/v1/tags/savetag_clothing',

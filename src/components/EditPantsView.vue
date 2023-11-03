@@ -9,10 +9,10 @@
                     <el-image v-if="form.clothing.url" :src="form.clothing.url" class="avatar"></el-image>
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
-                <el-form-item label="裤子照片路径" prop="form" v-show="false">
+                <el-form-item label="下装照片路径" prop="form" v-show="false">
                     <el-input v-model="form.clothing.url" :disabled="inputdisable" clearable></el-input>
                 </el-form-item>
-                <el-form-item label="裤子更多照片路径" prop="form" v-show="false">
+                <el-form-item label="下装更多照片路径" prop="form" v-show="false">
                     <el-input v-model="form.clothing.srcList" :disabled="inputdisable" clearable></el-input>
                 </el-form-item>
 

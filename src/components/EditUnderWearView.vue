@@ -12,7 +12,7 @@
                 <el-form-item label="照片路径" prop="form" v-show="false">
                     <el-input v-model="form.clothing.url" :disabled="inputdisable" clearable></el-input>
                 </el-form-item>
-                <el-form-item label="衣服更多照片路径" prop="form" v-show="false">
+                <el-form-item label="上装更多照片路径" prop="form" v-show="false">
                     <el-input v-model="form.clothing.srcList" :disabled="inputdisable" clearable></el-input>
                 </el-form-item>
 

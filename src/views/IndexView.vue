@@ -4,6 +4,7 @@
       <el-container>
         <el-header style="height: 11vh;">
           <el-avatar :src="avatarsrc" size="large" @click="changeuser" style="right: 2%;top:1%;position: absolute;"></el-avatar>
+          <el-text style="color: aliceblue;font-size: large;">总消费：{{ money.money }}</el-text>
         </el-header>
         <el-main style="margin-left: 1rem;width: 88%;">
           <el-row :gutter="20">
@@ -17,7 +18,7 @@
             <el-col :span="6">
               <router-link :to="{name:'pants'}">
                 <div class="grid-content ep-bg-purple" style="justify-content: center;display: flex;">
-                  <el-text class="mx-1" style="color: aliceblue;font-size: large;">裤子<br/>({{ countjson.pantscount }})</el-text>
+                  <el-text class="mx-1" style="color: aliceblue;font-size: large;">下装<br/>({{ countjson.pantscount }})</el-text>
                 </div>
               </router-link>
             </el-col>
@@ -74,11 +75,13 @@ export default {
   data() {
     return {
       countjson: {},
-      avatarsrc:''
+      avatarsrc:'',
+      money:0
     };
   },
   mounted() {
     this.getcount();
+    this.getmoney();
     if(localStorage.getItem('userid')==1){
       this.avatarsrc=new URL('../assets/avatar/1.jpg',import.meta.url).href
     }else if(localStorage.getItem('userid')==2){
@@ -96,6 +99,13 @@ export default {
     changeuser(){
       localStorage.removeItem('userid')
       this.$router.push('/user')
+    },
+    getmoney(){
+      axios.get('/v1/getmoneysum',
+      {headers:{'userid':localStorage.getItem('userid')}}
+      ).then((res) =>{
+        this.money=res.data
+      })
     }
   }
 }

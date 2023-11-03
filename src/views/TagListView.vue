@@ -31,8 +31,8 @@ export default {
     data() {
         return {
             tagitems: [],
-            options: [{value: 0, label: '衣服'}
-            ,{value: 1, label: '裤子'}
+            options: [{value: 0, label: '上装'}
+            ,{value: 1, label: '下装'}
             ,{value: 2, label: '内衣'}
             ,{value: 3, label: '鞋子'}],
             inputvalue: null,
@@ -52,7 +52,6 @@ export default {
     methods: {
         goBack() {
             this.$router.push('/')
-
         },
         computedRoute(tag) {
             console.log(tag.clothingtype )

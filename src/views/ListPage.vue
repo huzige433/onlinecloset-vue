@@ -2,8 +2,8 @@
   <div class="listpage">
     <el-page-header @back="goBack" ></el-page-header>
     <el-tabs v-model="activeName" class="demo-tabs"  stretch lazy >
-      <el-tab-pane label="衣服" name="first"><ListCoatView /></el-tab-pane>
-      <el-tab-pane label="裤子" name="second"><ListPantsView /></el-tab-pane>
+      <el-tab-pane label="上装" name="first"><ListCoatView /></el-tab-pane>
+      <el-tab-pane label="下装" name="second"><ListPantsView /></el-tab-pane>
       <el-tab-pane label="内衣" name="third"><ListUnderWearView /></el-tab-pane>
       <el-tab-pane label="鞋子" name="fourth"><ListShoeView /></el-tab-pane>
       <el-tab-pane label="回收站" name="five"><recycleView /></el-tab-pane>
