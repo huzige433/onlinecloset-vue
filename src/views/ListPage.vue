@@ -1,12 +1,12 @@
 <template>
   <div class="listpage">
     <el-page-header @back="goBack" ></el-page-header>
-    <el-tabs v-model="activeName" class="demo-tabs"  stretch lazy >
-      <el-tab-pane label="上装" name="first"><ListCoatView /></el-tab-pane>
-      <el-tab-pane label="下装" name="second"><ListPantsView /></el-tab-pane>
-      <el-tab-pane label="内衣" name="third"><ListUnderWearView /></el-tab-pane>
-      <el-tab-pane label="鞋子" name="fourth"><ListShoeView /></el-tab-pane>
-      <el-tab-pane label="回收站" name="five"><recycleView /></el-tab-pane>
+    <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick"  stretch  >
+      <el-tab-pane label="上装" name="first"><ListCoatView  v-if="getshow('first').ishow"/></el-tab-pane>
+      <el-tab-pane label="下装" name="second"><ListPantsView  v-if="getshow('second').ishow"/></el-tab-pane>
+      <el-tab-pane  label="内衣" name="third"><ListUnderWearView v-if="getshow('third').ishow"/></el-tab-pane>
+      <el-tab-pane  label="鞋子" name="fourth"><ListShoeView v-if="getshow('fourth').ishow" /></el-tab-pane>
+      <el-tab-pane  label="回收站" name="five"><recycleView v-if="getshow('five').ishow" /></el-tab-pane>
     </el-tabs>
     
     <el-backtop :right="10" :bottom="50" />
@@ -25,7 +25,11 @@ export default {
   components: {ListCoatView,ListPantsView,ListUnderWearView,ListShoeView,recycleView},
   data(){
     return {
-      activeName: ''
+      activeName: '',
+      isshow:[{name:"first",ishow:false},{name:"second",ishow:false}
+      ,{name:"third",ishow:false},{name:"fourth",ishow:false},
+      {name:"five",ishow:false}]
+
     }
   },
   created(){
@@ -42,6 +46,8 @@ export default {
         // 默认展示的组件
         this.activeName = 'first'
       }
+      this.isshow.find((item)=>{return item.name=== this.activeName}).ishow=true
+      
   },
   computed: {
     selectedComponent() {
@@ -62,7 +68,20 @@ export default {
   methods: {
     goBack() {
             this.$router.back()
-        }
+        },
+        handleClick(_tab) {
+          this.isshow.map((item)=>{
+            if(item.name===_tab.props.name){
+              item.ishow=true
+            }else{
+              item.ishow=false
+            }
+          })
+    },
+    getshow(name){
+     console.log(this.isshow.find((item)=>{return item.name===name}).ishow)
+      return  this.isshow.find((item)=>{return item.name===name})
+    }
   }
 }
 

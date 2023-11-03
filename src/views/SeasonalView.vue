@@ -99,9 +99,9 @@ export default {
           this.pantsdata = this.clothingdata.filter((data) => { return data.type === 1 })
           this.sortArry(this.pantsdata, 1)
           this.underweardata = this.clothingdata.filter((data) => { return data.type === 2 })
-          this.sortArry(this.pantsdata, 2)
+          this.sortArry(this.underweardata, 2)
           this.shoedata = this.clothingdata.filter((data) => { return data.type === 3 })
-          this.sortArry(this.pantsdata, 3)
+          this.sortArry(this.shoedata, 3)
         })
         .catch((error) => {
           console.log(error)
