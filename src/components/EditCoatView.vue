@@ -5,8 +5,8 @@
             <TagsView ref="tagWindow" />
             <el-form-item label="图片">
                 <el-upload class="avatar-uploader" action="lei" :on-change="handleChange" :show-file-list="false"
-                    :http-request="uploadImages" :disabled="inputdisable"><!--覆盖默认上传-->
-                    <el-image v-if="form.clothing.url" :src="form.clothing.url" class="avatar"></el-image>
+                    :http-request="uploadImages" :disabled="inputdisable" accept="image/*"><!--覆盖默认上传-->
+                    <el-image v-if="form.clothing.url" :src="form.clothing.url" class="avatar" ></el-image>
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
                 <el-form-item label="上装照片路径" prop="form" v-show="false">
