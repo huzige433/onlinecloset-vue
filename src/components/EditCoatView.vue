@@ -45,7 +45,7 @@
             </el-form-item>
             <el-form-item label="时间">
                 <!-- <el-input type="text" v-model="form.clothing.buytime" :disabled="inputdisable"></el-input> -->
-                <el-date-picker v-model="form.clothing.buytime" type="date" placeholder="选择日期"
+                <el-date-picker v-model="form.clothing.buytime" type="date" placeholder="选择日期" :editable="false"
                     :disabled="inputdisable"></el-date-picker>
             </el-form-item>
             <el-form-item label="描述" style="width: 100%;">

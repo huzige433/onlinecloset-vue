@@ -33,8 +33,8 @@
             </el-form-item>
             <el-form-item label="时间">
                 <!-- <el-input type="text" v-model="form.clothing.buytime" :disabled="inputdisable"></el-input> -->
-                <el-date-picker v-model="form.clothing.buytime" type="date" placeholder="选择日期"
-                    :disabled="inputdisable"></el-date-picker>
+                <el-date-picker v-model="form.clothing.buytime" type="date" placeholder="选择日期" :editable="false"
+                 :append-to-body="false"   :disabled="inputdisable"></el-date-picker>
             </el-form-item>
             <el-form-item label="描述" style="width: 100%;">
                 <el-input type="textarea" v-model="form.clothing.descript" :autosize="{ minRows: 2, maxRows: 10 }"
@@ -197,7 +197,7 @@ export default {
                 formData.append('file', item.file);
                 axios.post('/v1/uploadImages', formData).then((res) => {
                     this.form.clothing.url=res.data
-                }).catch((err) =>{console.log(err)});
+                }).catch((err) =>{this.$message.error(err);console.log(err)});
             }
         },
     },
