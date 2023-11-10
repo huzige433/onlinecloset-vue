@@ -55,7 +55,7 @@
             <el-form-item label="时间">
                 <!-- <el-input type="text" v-model="form.clothing.buytime" :disabled="inputdisable"></el-input> -->
                 <el-date-picker v-model="form.clothing.buytime" type="date" placeholder="选择日期" :editable="false"
-                    :disabled="inputdisable"></el-date-picker>
+                value-format="YYYY-MM-DD"   :disabled="inputdisable"></el-date-picker>
             </el-form-item>
             <el-form-item label="描述" style="width: 100%;">
                 <el-input type="textarea" v-model="form.clothing.descript" :autosize="{ minRows: 2, maxRows: 10 }"

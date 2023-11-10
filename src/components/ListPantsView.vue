@@ -11,12 +11,12 @@
             <el-button @click="openWindow"  type="primary">添加</el-button>
     <el-card style="padding-bottom: 15%;">
     <el-table   :data="clothingList.filter(data=>!inputvalue||(data.season==inputvalue)) " table-layout="fixed" :show-overflow-tooltip="false" 
-    :row-style="{height:'30px'}" :cell-style="{padding:'0px'}" style="font-size: 10px" row-key="clothingid"
+    :row-style="{height:'60px'}" :cell-style="{padding:'0px'}" style="font-size: 10px" row-key="clothingid"
       fit border >
       <el-table-column prop="name" label="名字" :filters="getfildername" :filter-method="filterHandler" /> 
-      <el-table-column label="览" min-width="35" >
+      <el-table-column label="览" min-width="60" >
             <template #default="scope" >
-                <el-image style="height: 30px; display: block; margin: 0 auto;" :src="scope.row.url" :zoom-rate="1.2"
+                <el-image style="height: 60px; display: block; margin: 0 auto;" :src="scope.row.url" :zoom-rate="1.2"
             :preview-src-list="scope.row.srcList" :initial-index="4" fit="contain" :preview-teleported="true" />
             </template>
         </el-table-column>
@@ -25,10 +25,10 @@
         <el-table-column prop="waitswidth" label="腰围"  />
         <el-table-column prop="hips" label="臀围"  />
         <el-table-column prop="pantslength" label="裤长"  />
-        <el-table-column prop="halfthignwidth" label="底裤裆"  />
+        <el-table-column prop="halfthignwidth" label="底裆宽"  />
         <el-table-column prop="crotchup" label="上裆"  />
         <el-table-column  prop="inseamlength" label="裤内裆长"  />
-        <el-table-column prop="pantsopeningwidth" label="裤口宽"  />
+        <el-table-column prop="pantsopeningwidth" label="1/2裤口宽"  />
         <el-table-column label="查看" >
             <template #default="scope">
                 <el-button style="display:block;margin: 0 auto;" size="small"  @click="handleEdit(scope.$index, scope.row.id,true)" >查看</el-button>

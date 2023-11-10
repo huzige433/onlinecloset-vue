@@ -11,20 +11,20 @@
             <el-button @click="openWindow"  type="primary">添加</el-button>
     <el-card style="padding-bottom: 15%;">
         <el-table :data="clothingList.filter(data=>!inputvalue||(data.season==inputvalue))" table-layout="fixed" :show-overflow-tooltip="false" 
-    :row-style="{height:'30px'}" :cell-style="{padding:'0px'}"  style="font-size: 10px;" row-key="clothingid"
+    :row-style="{height:'60px'}" :cell-style="{padding:'0px'}"  style="font-size: 10px;" row-key="clothingid"
     fit  border >
         <el-table-column prop="name" label="名字" :filters="getfildername" :filter-method="filterHandler" />
-        <el-table-column label="览" min-width="35">
+        <el-table-column label="览" min-width="60">
             <template #default="scope" >
-                <el-image style="height: 30px; display: block; margin: 0 auto;" :src="scope.row.url" :zoom-rate="1.2"
+                <el-image style="height: 60px; display: block; margin: 0 auto;" :src="scope.row.url" :zoom-rate="1.2"
             :preview-src-list="scope.row.srcList" :initial-index="4" fit="contain" :preview-teleported="true" />
             </template>
         </el-table-column>
         
         <el-table-column prop="size" label="尺码"  />
-        <el-table-column prop="body_width" label="身宽"  />
         <el-table-column prop="clothing_length" label="衣长"  />
         <el-table-column prop="shoulder_length" label="肩宽" />
+        <el-table-column prop="body_width" label="身宽"  />
         <el-table-column prop="sleeve_length" label="袖长"  />
         <el-table-column label="查看" >
             <template #default="scope">
