@@ -32,7 +32,7 @@
             <el-form-item label="裤长">
                 <el-input type="text" v-model="form.pantslength" :disabled="inputdisable"></el-input>
             </el-form-item>
-            <el-form-item label="底裤裆">
+            <el-form-item label="底裆宽">
                 <el-input type="text" v-model="form.halfthignwidth" :disabled="inputdisable"></el-input>
             </el-form-item>
             <el-form-item label="上裆">
