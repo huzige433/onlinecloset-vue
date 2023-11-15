@@ -110,7 +110,8 @@ const fetchData = async (tagid:Number|undefined) => {
       }
     }else{
         try {
-        const response = await axios.get('/v1/tags/getclothingfrontag',{params:{tagid:tagid,type:2}});
+        const headers={'userid':localStorage.getItem('userid')}
+        const response = await axios.get('/v1/tags/getclothingfrontag',{headers:headers,params:{tagid:tagid,type:2}});
         const responseData = response.data;
         coatlist=responseData
       } catch (error) {
