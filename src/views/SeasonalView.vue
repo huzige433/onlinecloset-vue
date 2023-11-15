@@ -16,7 +16,7 @@
           <el-row :gutter="10">
             <el-col v-for="clothing in coatdata" :key="clothing.id" :span="4">
               <div class="bg-purple">
-                <el-image :src="clothing.url" style="width: 50px; height: 50px;"></el-image>
+                <el-image :src="clothing.url" style="width: 60px; height: 60px;"></el-image>
               </div>
             </el-col>
           </el-row>
@@ -30,7 +30,7 @@
 
             <el-col v-for="clothing in pantsdata" :key="clothing.id" :span="4">
               <div class="bg-purple">
-                <el-image :src="clothing.url" style="width: 50px; height: 50px;"></el-image>
+                <el-image :src="clothing.url" style="width: 60px; height: 60px;"></el-image>
               </div>
 
             </el-col>
@@ -44,7 +44,7 @@
           <el-row :gutter="10">
             <el-col v-for="clothing in underweardata" :key="clothing.id" :span="4">
               <div class="bg-purple">
-                <el-image :src="clothing.url" style="width: 50px; height: 50px;"></el-image>
+                <el-image :src="clothing.url" style="width: 60px; height: 60px;"></el-image>
 
               </div>
             </el-col>
@@ -59,7 +59,7 @@
 
             <el-col v-for="clothing in shoedata" :key="clothing.id" :span="4" style="padding-bottom: 15%;">
               <div class="bg-purple">
-                <el-image :src="clothing.url" style="width: 50px; height: 50px;"></el-image>
+                <el-image :src="clothing.url" style="width: 60px; height: 60px;"></el-image>
               </div>
             </el-col>
           </el-row>
