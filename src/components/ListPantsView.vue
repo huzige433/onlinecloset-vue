@@ -65,6 +65,7 @@ import EditPantsView from './EditPantsView.vue';
 import axios from 'axios';
 import { useRoute } from 'vue-router';
 import Sortable from 'sortablejs'
+import { tr } from 'element-plus/es/locale';
 
 const windowVisible = ref(false);
 const inputdisable = ref(false);
@@ -76,6 +77,7 @@ const options=[{value: '0', label: '夏'},
                      {value: '2', label: '春秋'}
                     ];
 const inputvalue=ref();
+const issort=ref(false);
 
 interface Clothing {
     id:Number
@@ -100,6 +102,7 @@ const clothingList  = ref<Clothing[]>([]);
 var coatlist:any = [];
 const fetchData = async (tagid:Number|undefined) => {
     if(!tagid){
+        issort.value=false
         try {
         const headers={'userid':localStorage.getItem('userid')}
         const response = await axios.get('/v1/pants/list',{headers:headers});
@@ -109,6 +112,7 @@ const fetchData = async (tagid:Number|undefined) => {
         console.error(error);
       }
     }else{
+        issort.value=true
         try {
         const headers={'userid':localStorage.getItem('userid')}
         const response = await axios.get('/v1/tags/getclothingfrontag',{headers:headers,params:{tagid:tagid,type:1}});
@@ -200,7 +204,8 @@ const el = document.querySelectorAll('.el-table__body-wrapper  table  tbody')[0]
 const sortable = new Sortable(el, {
 handle: '.el-image',
 animation: 500,
-delay:30,
+delay:50,
+disabled:issort.value,
 onEnd: (e:any) => { // 监听拖动结束事件
     const arr = clothingList.value; // 获取表数据
     arr.splice(e.newIndex, 0, arr.splice(e.oldIndex, 1)[0]); // 数据处理，获取最新的表格数据
